@@ -5,12 +5,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float accl=0.1f;
+    public float bulletAcc=0.1f;
    public GameObject bullet;
    public Rigidbody2D m_body2d;
   public int maxSpeed=5;
+  public int bulletSpeed=10;
     void Start()
     {
-   
+      
     }
 
  
@@ -29,9 +31,11 @@ public class Player : MonoBehaviour
 
     }
       private void Shoot(){
-   Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation);
-             
-     }
+  GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
+   Projectile   script=  projectile.GetComponent<Projectile>();
+      script.speed=bulletSpeed;
+      script.acc=bulletAcc;
+         }
      void move () {
        
          Vector3 position = transform.position;
