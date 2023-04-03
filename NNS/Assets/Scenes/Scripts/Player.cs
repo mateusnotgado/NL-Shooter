@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float accl=0.1f;
@@ -65,5 +65,16 @@ public class Player : MonoBehaviour
               m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y* (float)0.99);
            }
      }
+
+     void OnCollisionEnter2D(Collision2D col)
+    {
+      
+         if (col.gameObject.name=="EnemyBullet(Clone)") {
+           print("perdeu");
+           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
+        }
+       
+    }
 }
 

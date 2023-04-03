@@ -45,12 +45,15 @@ public class Projectile : MonoBehaviour
        bulletRigidBody.velocity =  bulletRigidBody.velocity - accDir * acc;
      // bulletRigidBody.velocity = rotate(bulletRigidBody.velocity,-acc);
       } 
+      bulletRigidBody.velocity=bulletRigidBody.velocity.normalized;
+      bulletRigidBody.velocity*=speed;
+      
     }
       void OnCollisionEnter2D(Collision2D col)
     {
       
           Destroy(this.gameObject);
-        print("acertoMizeravi");
+       
      
 }
 
