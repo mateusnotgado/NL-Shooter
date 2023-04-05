@@ -339,5 +339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletSpeed: 10
+  bulletSpeed: 50
   bullet: {fileID: 245044180894402353, guid: 62c0736070fba314babc102c1d2187ae, type: 3}
+  timeToAttack: 3
