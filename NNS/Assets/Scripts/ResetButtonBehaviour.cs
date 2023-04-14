@@ -9,6 +9,6 @@ public class ResetButtonBehaviour : MonoBehaviour
         {
            
            print("Button clicked " + n + " times.");
-        SceneManager.LoadScene("Fase1", LoadSceneMode.Single);
+        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 }

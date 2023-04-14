@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         float shootTime = Random.Range(2, 5);
+        float shootTime = 0.5f;
          InvokeRepeating("Shoot",timeToAttack, shootTime);
 
     }

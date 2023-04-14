@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
    public Rigidbody2D m_body2d;
   public int maxSpeed=5;
   public int bulletSpeed=10;
+    private float horizontal;
+    private float vertical;
+    public float friction=0.95f;
     void Start()
     {
       
@@ -20,10 +23,10 @@ public class Player : MonoBehaviour
     {
    m_body2d =  GetComponent<Rigidbody2D>();
    move();
-         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-         Vector3 rotation = mousePos - transform.position;
-     float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg; 
-         transform.rotation = Quaternion.Euler(0, 0,rotZ-90);
+     //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     Vector3 rotation = mousePos - transform.position;
+   //  float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg; 
+    //     transform.rotation = Quaternion.Euler(0, 0,rotZ-90);
 
        if(Input.GetMouseButtonDown(0)){
        Shoot();
@@ -37,36 +40,67 @@ public class Player : MonoBehaviour
       script.acc=bulletAcc;
          }
      void move () {
-       
-         Vector3 position = transform.position;
-  if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-          if(m_body2d.velocity.x>=-1*maxSpeed){
-              m_body2d.velocity = new Vector2(m_body2d.velocity.x-accl,m_body2d.velocity.y);
-          }  
-            
-        }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            if(m_body2d.velocity.x<=maxSpeed){
-              m_body2d.velocity = new Vector2(m_body2d.velocity.x+accl,m_body2d.velocity.y);
-          } 
-        } else {
-       m_body2d.velocity = new Vector2(m_body2d.velocity.x* (float)0.99,m_body2d.velocity.y);
-        }
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
 
-          if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ){
-             if(m_body2d.velocity.y<=maxSpeed){
-                m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y+accl);
-                 }
+        /*    Vector3 position = transform.position;
+     if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
+             if(m_body2d.velocity.x>=-1*maxSpeed){
+                 m_body2d.velocity = new Vector2(m_body2d.velocity.x-accl,m_body2d.velocity.y);
+             }  
 
-           } else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ){
-               if(m_body2d.velocity.y>=maxSpeed*-1){
-                m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y-accl); }
-           } else {
-              m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y* (float)0.99);
            }
-     }
+           else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
+               if(m_body2d.velocity.x<=maxSpeed){
+                 m_body2d.velocity = new Vector2(m_body2d.velocity.x+accl,m_body2d.velocity.y);
+             } 
+           } else {
+          m_body2d.velocity = new Vector2(m_body2d.velocity.x* (float)0.99,m_body2d.velocity.y);
+           }
 
-     void OnCollisionEnter2D(Collision2D col)
+             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ){
+                if(m_body2d.velocity.y<=maxSpeed){
+                   m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y+accl);
+                    }
+
+              } else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ){
+                  if(m_body2d.velocity.y>=maxSpeed*-1){
+                   m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y-accl); }
+              } else {
+                 m_body2d.velocity = new Vector2(m_body2d.velocity.x,m_body2d.velocity.y* (float)0.99);
+              } */
+    }
+    private void FixedUpdate()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 rotation = mousePos - transform.position;
+        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rotZ - 90);
+
+        m_body2d.velocity = new Vector2(m_body2d.velocity.x + horizontal *accl , m_body2d.velocity.y+ vertical *accl);
+        if (m_body2d.velocity.x > maxSpeed)
+        {
+            m_body2d.velocity = new Vector2(maxSpeed, m_body2d.velocity.y);
+        } else if ( m_body2d.velocity.x < -1 * maxSpeed)
+        {
+            m_body2d.velocity = new Vector2(maxSpeed * -1, m_body2d.velocity.y);
+        }
+
+        if (m_body2d.velocity.y > maxSpeed)
+        {
+            m_body2d.velocity = new Vector2( m_body2d.velocity.x,maxSpeed);
+        }
+        else if (m_body2d.velocity.y < -1 * maxSpeed)
+        {
+            m_body2d.velocity = new Vector2( m_body2d.velocity.x,maxSpeed * -1); 
+        }
+        if( horizontal ==0)
+        m_body2d.velocity =new Vector2( m_body2d.velocity.x*friction,m_body2d.velocity.y);
+        if (vertical == 0)
+            m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_body2d.velocity.y * friction);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
     {
       
          if (col.gameObject.name=="EnemyBullet(Clone)") {
