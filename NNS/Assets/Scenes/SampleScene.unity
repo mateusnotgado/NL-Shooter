@@ -3268,12 +3268,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6353413516400416910, guid: a3f1d1aac0b702f48ac92706788787f4, type: 3}
       propertyPath: accl
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6353413516400416910, guid: a3f1d1aac0b702f48ac92706788787f4, type: 3}
       propertyPath: m_body2d
       value: 
       objectReference: {fileID: 1125119341}
+    - target: {fileID: 6353413516400416910, guid: a3f1d1aac0b702f48ac92706788787f4, type: 3}
+      propertyPath: maxSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6353413516400416910, guid: a3f1d1aac0b702f48ac92706788787f4, type: 3}
       propertyPath: bulletAcc
       value: 0.25
