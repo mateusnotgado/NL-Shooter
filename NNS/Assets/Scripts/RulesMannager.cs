@@ -12,7 +12,7 @@ public class RulesMannager : MonoBehaviour
     void Update()
     {
         targets = GameObject.FindGameObjectsWithTag("Targets");
-        if (targets.Length == 0&& !victory&&!gameOver)
+        if (targets.Length == 0 && !victory&&!gameOver)
         {
             print("Vitoria !!!!");
             victory = true;
@@ -20,7 +20,7 @@ public class RulesMannager : MonoBehaviour
         } 
         if (!victory && timeOut&&!gameOver){
             gameOver = true;
-            print("perdeu comparça");
+            print("perdeu comparï¿½a");
             SceneManager.LoadScene("GameOverScreen", LoadSceneMode.Single);
         }
     }

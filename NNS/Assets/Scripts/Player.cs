@@ -6,40 +6,42 @@ public class Player : MonoBehaviour
 {
     public float accl=0.1f;
     public float bulletAcc=0.1f;
-   public GameObject bullet;
-   public Rigidbody2D m_body2d;
-  public int maxSpeed=5;
-  public int bulletSpeed=10;
+    public GameObject bullet;
+    public Rigidbody2D m_body2d;
+    public int maxSpeed=5;
+    public int bulletSpeed=10;
     private float horizontal;
     private float vertical;
     public float friction=0.95f;
+    private AudioSource _audioSrc;
     void Start()
     {
-      
+      _audioSrc = GetComponent<AudioSource>();  
     }
 
  
     void Update()
     {
-   m_body2d =  GetComponent<Rigidbody2D>();
-   move();
+        m_body2d =  GetComponent<Rigidbody2D>();
+        move();
      //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     //     Vector3 rotation = mousePos - transform.position;
    //  float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg; 
     //     transform.rotation = Quaternion.Euler(0, 0,rotZ-90);
 
-       if(Input.GetMouseButtonDown(0)){
-       Shoot();
+        if(Input.GetMouseButtonDown(0)){
+            Shoot();
         }
 
     }
-      private void Shoot(){
-  GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
-   Projectile   script=  projectile.GetComponent<Projectile>();
-      script.speed=bulletSpeed;
-      script.acc=bulletAcc;
-         }
-     void move () {
+    private void Shoot(){
+        _audioSrc.Play();
+        GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
+        Projectile   script=  projectile.GetComponent<Projectile>();
+        script.speed=bulletSpeed;
+        script.acc=bulletAcc;
+    }
+    void move () {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
