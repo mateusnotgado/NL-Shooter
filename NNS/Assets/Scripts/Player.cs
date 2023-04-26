@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     private float vertical;
     public float friction=0.95f;
     private AudioSource _audioSrc;
+    public AudioClip shootSFX;
+    public AudioClip walkSFX;
+
+
     void Start()
     {
       _audioSrc = GetComponent<AudioSource>();  
@@ -35,7 +39,7 @@ public class Player : MonoBehaviour
 
     }
     private void Shoot(){
-        _audioSrc.Play();
+        AudioSource.PlayClipAtPoint(shootSFX, transform.position);
         GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
         Projectile   script=  projectile.GetComponent<Projectile>();
         script.speed=bulletSpeed;
@@ -44,7 +48,12 @@ public class Player : MonoBehaviour
     void move () {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-
+        if (Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.W) ||
+            Input.GetKey(KeyCode.S) || 
+            Input.GetKey(KeyCode.D)){
+                AudioSource.PlayClipAtPoint(walkSFX, transform.position);
+            }
         /*    Vector3 position = transform.position;
      if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
              if(m_body2d.velocity.x>=-1*maxSpeed){
