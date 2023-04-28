@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     }
 
     void Shoot (){
- GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
+ GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(0).position,this.transform.rotation) as GameObject;
    EnemyProjectile   script=  projectile.GetComponent<EnemyProjectile>();
       script.bulletSpeed=bulletSpeed;
      

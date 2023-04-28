@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     }
     private void Shoot(){
         AudioSource.PlayClipAtPoint(shootSFX, transform.position);
-        GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
+        GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(0).position,this.transform.rotation) as GameObject;
         Projectile   script=  projectile.GetComponent<Projectile>();
         script.speed=bulletSpeed;
         script.acc=bulletAcc;
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
             Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.S) || 
             Input.GetKey(KeyCode.D)){
-                AudioSource.PlayClipAtPoint(walkSFX, transform.position);
+             //   AudioSource.PlayClipAtPoint(walkSFX, transform.position);
             }
         /*    Vector3 position = transform.position;
      if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {

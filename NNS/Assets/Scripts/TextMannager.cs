@@ -22,14 +22,14 @@ public class TextMannager : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-      /*
+    
         if(Input.GetKeyDown(KeyCode.Alpha1)){
           ShootingMode.text="Left";
         } else if (Input.GetKeyDown(KeyCode.Alpha2)){
              ShootingMode.text="Linear";
         } else if (Input.GetKeyDown(KeyCode.Alpha3)){
              ShootingMode.text="Right";
-        } */
+        } 
 
         if(Input.GetKeyDown(KeyCode.Q)){
           idx_GunMode = mod_floor(idx_GunMode - 1);
