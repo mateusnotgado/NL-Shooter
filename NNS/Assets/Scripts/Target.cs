@@ -6,6 +6,7 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {   
     private AudioSource _audioSrc;
+    public AudioClip hitSFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class Target : MonoBehaviour
     {
         if (col.gameObject.name == "Bullet(Clone)")
         {   
-            _audioSrc.Play();
+            _audioSrc.PlayOneShot(hitSFX);
             Destroy(this.gameObject);
 
         }
