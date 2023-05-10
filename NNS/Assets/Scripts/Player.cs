@@ -6,43 +6,61 @@ public class Player : MonoBehaviour
 {
     public float accl=0.1f;
     public float bulletAcc=0.1f;
-   public GameObject bullet;
-   public Rigidbody2D m_body2d;
-  public int maxSpeed=5;
-  public int bulletSpeed=10;
+    public GameObject bullet;
+    public Rigidbody2D m_body2d;
+    public int maxSpeed=5 ;
+    public int bulletSpeed=10;
     private float horizontal;
     private float vertical;
     public float friction=0.95f;
+    // SFX
+    private AudioSource walkAudioSrc;
+    private AudioSource shootAudioSrc;
+    public AudioClip shootSFX;
+    public AudioClip walkSFX;
+
+
     void Start()
     {
-      
+       walkAudioSrc = gameObject.AddComponent<AudioSource>();
+        shootAudioSrc = gameObject.AddComponent<AudioSource>();
     }
 
  
     void Update()
     {
-   m_body2d =  GetComponent<Rigidbody2D>();
-   move();
+        m_body2d =  GetComponent<Rigidbody2D>();
+        move();
      //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     //     Vector3 rotation = mousePos - transform.position;
    //  float rotZ = Mathf.Atan2(rotation.y,rotation.x) * Mathf.Rad2Deg; 
     //     transform.rotation = Quaternion.Euler(0, 0,rotZ-90);
 
-       if(Input.GetMouseButtonDown(0)){
-       Shoot();
+        if(Input.GetMouseButtonDown(0)){
+            Shoot();
         }
 
     }
-      private void Shoot(){
-  GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(2).position,this.transform.rotation) as GameObject;
-   Projectile   script=  projectile.GetComponent<Projectile>();
-      script.speed=bulletSpeed;
-      script.acc=bulletAcc;
-         }
-     void move () {
+    private void Shoot(){
+        shootAudioSrc.PlayOneShot(shootSFX);
+        GameObject projectile = Instantiate(this.bullet,this.gameObject.transform.GetChild(0).position,this.transform.rotation) as GameObject;
+        Projectile   script=  projectile.GetComponent<Projectile>();
+        script.speed=bulletSpeed;
+        script.acc=bulletAcc;
+    }
+    void move () {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-
+        if (horizontal != 0 || vertical != 0)
+        {
+            if (!walkAudioSrc.isPlaying)
+            {
+                walkAudioSrc.PlayOneShot(walkSFX);
+            }
+        }
+        else {
+            walkAudioSrc.Stop();
+        }
         /*    Vector3 position = transform.position;
      if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
              if(m_body2d.velocity.x>=-1*maxSpeed){
