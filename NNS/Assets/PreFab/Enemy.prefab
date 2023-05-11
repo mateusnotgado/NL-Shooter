@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletSpeed: 50
+  bulletSpeed: 100
   bullet: {fileID: 245044180894402353, guid: 62c0736070fba314babc102c1d2187ae, type: 3}
   timeToAttack: 0.5
-  shootTime: 1
+  shootTime: 0.1
   hitSFX: {fileID: 8300000, guid: 112f5ec36fe6efa42a848b8930d96ed9, type: 3}
   fireSFX: {fileID: 8300000, guid: b2d79f7a05864fa40bfa2cbc44ffd2e7, type: 3}

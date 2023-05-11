@@ -1,3 +1,6 @@
+
+using System.Timers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float accl=0.1f;
+    public int vel = 5;
     public float bulletAcc=0.1f;
     public GameObject bullet;
     public Rigidbody2D m_body2d;
@@ -94,8 +98,10 @@ public class Player : MonoBehaviour
         Vector3 rotation = mousePos - transform.position;
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotZ - 90);
-
+        transform.position = new Vector3(transform.position.x + horizontal*Time.deltaTime*vel, transform.position.y + vertical*Time.deltaTime*vel);
+/*
         m_body2d.velocity = new Vector2(m_body2d.velocity.x + horizontal *accl , m_body2d.velocity.y+ vertical *accl);
+        
         if (m_body2d.velocity.x > maxSpeed)
         {
             m_body2d.velocity = new Vector2(maxSpeed, m_body2d.velocity.y);
@@ -116,6 +122,7 @@ public class Player : MonoBehaviour
         m_body2d.velocity =new Vector2( m_body2d.velocity.x*friction,m_body2d.velocity.y);
         if (vertical == 0)
             m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_body2d.velocity.y * friction);
+    */
     }
 
     void OnCollisionEnter2D(Collision2D col)
