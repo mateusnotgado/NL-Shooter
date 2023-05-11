@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TextMannager : MonoBehaviour
 {
     public Text ShootingMode;
+    public Text TimerText;
     public string[] GunMode = {"Left" , "Linear" , "Right"};
     public int idx_GunMode = 1; //starts at linear
     // Start is called before the first frame update
